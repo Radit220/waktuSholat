@@ -1,0 +1,228 @@
+function formattedDate() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  const formattedDate = `${year}-${month}-${day}`;
+  return formattedDate;
+}
+
+async function getData() {
+  let resp = await fetch("https://api.banghasan.com/sholat/format/json/kota");
+  let { kota } = await resp.json();
+  return kota;
+}
+
+async function searchKota() {
+  let kota = await getData();
+  let input = document.querySelector(".search-box").value.toUpperCase();
+  const hasil = kota.find((item) => item.nama.toUpperCase() === input);
+  let displayName = document.querySelector(".city-name");
+
+  if (hasil) {
+    displayName.innerHTML = `${hasil.nama}`;
+
+    let date = formattedDate();
+    console.log(hasil.id);
+    jadwalSholat(hasil.id, date);
+  } else {
+    displayName.innerHTML = `Tidak Ditemukan`;
+    clearJadwalSholat()
+  }
+}
+
+async function jadwalSholat(idKota, formattedDate) {
+  try{
+  let resp = await fetch(`https://api.banghasan.com/sholat/format/json/jadwal/kota/${idKota}/tanggal/${formattedDate}`);
+  let { jadwal } = await resp.json();
+  let { data } = jadwal;
+  let dateInfo = document.querySelector('.date-info')
+  let arr = Object.values(data);
+  dateInfo.innerHTML = `${arr[7]}`
+
+  cacah(arr);
+  }
+  catch(error){
+    console.log(error);
+  }
+}
+
+function clearJadwalSholat(){
+  let container = document.querySelector('.section');
+  container.innerHTML = 'Jadwal Sholat Tidak Tersedia: <span class="error">Periksa kembali nama daerah yang anda masukkan</span>'
+}
+
+function cacah(a) {
+  let cards = `
+
+  <div class="card-container pagi">
+    <h3>SUBUH</h3>
+    <h4>${a[6]}</h4>
+  </div>
+
+  <div class="card-container dzuhur">
+    <h3>DZUHUR</h3>
+    <h4>${a[2]}</h4>
+  </div>
+
+  <div class="card-container ashar">
+    <h3>ASHAR</h3>
+    <h4>${a[0]}</h4>
+  </div>
+
+  <div class="card-container maghrib">
+    <h3>MAGHRIB</h3>
+    <h4>${a[5]}</h4>
+  </div>
+
+  <div class="card-container isya">
+    <h3>ISYA</h3>
+    <h4>${a[4]}</h4>
+  </div>
+    `;
+  let container = document.querySelector(".section");
+  container.innerHTML = cards;
+}
+
+async function getTableData(kotaId) {
+  // Current Date
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  const formattedDate = `${year}-${month}-${day}`;
+  let response = await fetch(`https://api.banghasan.com/sholat/format/json/jadwal/kota/${kotaId}/tanggal/${formattedDate}`);
+  let resp = await response.json();
+  return resp;
+}
+
+async function tambahBaris() {
+  const kotaData = [
+    {
+      "id": "667",
+      "nama": "KOTA JAKARTA"
+  },
+  {
+      "id": "515",
+      "nama": "ACEH JAYA"
+  },
+  {
+    "id": "582",
+    "nama": "KOTA BUKITTINGGI"
+},
+{
+  "id": "697",
+  "nama": "KOTA BANDUNG"
+},
+{
+  "id": "699",
+  "nama": "KOTA BEKASI"
+},
+{
+  "id": "700",
+  "nama": "KOTA BOGOR"
+},
+{
+  "id": "1008",
+  "nama": "KOTA JAYAPURA"
+},
+{
+  "id": "930",
+  "nama": "KOTA MAKASSAR"
+},
+{
+  "id": "776",
+  "nama": "KOTA MOJOKERTO"
+},
+{
+  "id": "908",
+  "nama": "KOTA PALU"
+},
+{
+  "id": "581",
+  "nama": "KOTA PADANGPANJANG"
+},
+{
+  "id": "737",
+  "nama": "KOTA PEKALONGAN"
+},
+{
+  "id": "676",
+  "nama": "KOTA SERANG"
+},
+{
+  "id": "770",
+  "nama": "KOTA SURABAYA"
+},
+{
+  "id": "739",
+  "nama": "KOTA SURAKARTA"
+},
+{
+  "id": "677",
+  "nama": "KOTA TANGERANG"
+},
+{
+  "id": "740",
+  "nama": "KOTA TEGAL"
+},
+{
+  "id": "978",
+  "nama": "KOTA TERNATE"
+},
+{
+  "id": "979",
+  "nama": "KOTA TIDORE"
+},
+  ];
+
+  const table = document.querySelector(".jadwalTable");
+
+  for (const kota of kotaData) {
+    const dataSholat = await getTableData(kota.id);
+
+    const row = table.insertRow(table.rows.length);
+    const cell1 = row.insertCell(0);
+    const cell2 = row.insertCell(1);
+    const cell3 = row.insertCell(2);
+    const cell4 = row.insertCell(3);
+    const cell5 = row.insertCell(4);
+    const cell6 = row.insertCell(5);
+
+    cell2.style.textAlign = 'center';
+    cell3.style.textAlign = 'center';
+    cell4.style.textAlign = 'center';
+    cell5.style.textAlign = 'center';
+    cell6.style.textAlign = 'center';
+
+    cell1.innerHTML = kota.nama;
+    cell2.innerHTML = dataSholat.jadwal.data.subuh;
+    cell3.innerHTML = dataSholat.jadwal.data.dzuhur;
+    cell4.innerHTML = dataSholat.jadwal.data.ashar;
+    cell5.innerHTML = dataSholat.jadwal.data.maghrib;
+    cell6.innerHTML = dataSholat.jadwal.data.isya;
+  }
+}
+
+tambahBaris();
+
+document.querySelector(".search-button").addEventListener("click", searchKota);
+
+
+
+// let prevScrollpos = window.pageYOffset;
+
+// window.onscroll = function() {
+//     let currentScrollPos = window.pageYOffset;
+
+//     if (prevScrollpos > currentScrollPos) {
+//         // Menyembunyikan navbar saat scroll ke bawah
+//         document.querySelector(".nav").style.top = "0";
+//     } else {
+//         // Menampilkan navbar saat scroll ke atas
+//         document.querySelector(".nav").style.top = "-60px";
+//     }
+
+//     prevScrollpos = currentScrollPos;
+
+// };

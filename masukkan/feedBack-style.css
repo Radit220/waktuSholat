@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;0,500;1,400&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Kanit", sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #3cf0ea;
+}
+
+header {
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+}
+
+.container {
+  background-color: #cc74db;
+  height: 50vh;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: 0.2s ease-in-out;
+}
+
+.container:hover {
+  box-shadow: 8px 8px 2px black;
+}
+
+.container form {
+  width: 90%;
+  /* background-color: white; */
+}
+
+.container .field {
+  width: 100%;
+  border: none;
+}
+
+.container .field input {
+  width: 95%;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+.container .field .pesan {
+  height: 2rem;
+  width: 95%;
+  border-radius: 8px;
+  resize: none;
+  margin-right: 10px;
+}
+
+.tombol{
+  height: 2rem;
+}
+
+.pesan{
+  margin-left: .6rem;
+}
+
+.button{
+  height: 3rem;
+  width: 3rem; 
+  background-color: white;
+  margin-top: 3rem;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  transition: .2s ease-in-out;
+}
+
+.button:hover{
+  box-shadow: 2px 2px 2px black;
+}

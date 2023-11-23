@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WAKTU SHOLAT</title>
+        <!-- google font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Roboto+Slab:wght@400;500;600&family=Roboto:ital,wght@0,500;1,400;1,500&display=swap" rel="stylesheet">
+    <!-- css -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  </head>
+  <body>
+    <nav class="nav">
+      <ul>
+        <div class="navbar">
+          <a href="#main">Main Page</a>
+          <a href="#table">Table Page</a>
+          <a href="http://localhost/waktusholat/masukkan/feedBack.php">FeedBack</a>
+        </div>
+      </ul>
+    </nav>
+
+    <div class="landing"  id="main">
+      <h1>Waktu Sholat</h1>
+
+      <div class="search-container">
+        <div class="search-inner">
+        <input type="text" class="search-box" placeholder="Masukkan Nama Kota" />
+        <button class="search-button">Cari</button>
+      </div>
+        <p class="desc">*Tambahkan "Kota" untuk daerah perkotaan</p>
+      </div>
+
+      <img src="./image/sholat.png" alt="sholat" class="image1">
+
+      <h3 class="city-name"></h3>
+      <h3 class="date-info"></h3>
+    </div>
+
+    <div class="section">
+      
+
+    </div>
+
+    <div class="table-container" id="table">
+
+      <h1 class="tT">Table Page</h1>
+
+      <table class="jadwalTable">
+        <thead>
+        <tr>
+          <th>NAMA KOTA</th>
+          <th>SUBUH</th>
+          <th>DZUHUR</th>
+          <th>ASHAR</th>
+          <th>MAGHRIB</th>
+          <th>ISYA</th>
+        </tr>
+      </thead>
+      <tbody class="data-table"></tbody>
+      </table>
+
+      <div class="paginationContainer">
+        <button id="prev" onclick="prevPage()">Previous</button>
+        <button id="next" onclick="nextPage()">Next</button>
+      </div>
+    </div>
+
+    <footer>
+      <div class="icon-foot">
+        <a href="https://www.instagram.com/raditya_220/"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.youtube.com/channel/UCFDL96WyyfY0pfYJaznIdsQ"><i class="fa-brands fa-youtube"></i></a>
+        <a href="https://twitter.com/radithardi02"><i class="fa-brands fa-x-twitter"></i></a>
+      </div>
+
+      <div class="copyright-foot">
+        <p>Copyright <i class="fa-solid fa-copyright"></i> 2023</p>
+      </div>
+
+      <div class="created-foot">
+        <p>Made By <span class="creator">Raditya</span> With <i class="fa-solid fa-heart"></i></p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
